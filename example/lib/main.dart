@@ -7,7 +7,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
       originalStoreVersion: '',
     );
     print(ver);
-    const simpleBehavior = true;
+    
 
     // if (simpleBehavior) {
     basicStatusCheck(newVersion);
@@ -61,6 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
       release = version.releaseNotes ?? "";
       setState(() {});
     }
+
+    if(!mounted) return;
+
     newVersion.showAlertIfNecessary(
       context: context,
       launchModeVersion: LaunchModeVersion.external,
@@ -69,6 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   advancedStatusCheck(NewVersionPlus newVersion) async {
     final status = await newVersion.getVersionStatus();
+
+    if(!mounted) return; 
+
     if (status != null) {
       debugPrint(status.releaseNotes);
       debugPrint(status.appStoreLink);

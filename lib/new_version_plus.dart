@@ -118,8 +118,9 @@ class NewVersionPlus {
   }) async {
     final VersionStatus? versionStatus = await getVersionStatus();
 
+    if(!context.mounted) return;
+
     if (versionStatus != null && versionStatus.canUpdate) {
-      // ignore: use_build_context_synchronously
       showUpdateDialog(
         context: context,
         versionStatus: versionStatus,
